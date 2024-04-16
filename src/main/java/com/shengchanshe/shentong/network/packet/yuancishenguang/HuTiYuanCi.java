@@ -1,9 +1,7 @@
 package com.shengchanshe.shentong.network.packet.yuancishenguang;
 
-import com.shengchanshe.shentong.network.ModNetwork;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -45,24 +43,14 @@ public class HuTiYuanCi implements IMessage {
             Minecraft.getMinecraft().addScheduledTask(new Runnable() {
                 @Override
                 public void run() {
-                    EntityPlayerMP player = ctx.getServerHandler().player;
-                    double radius = 1.0;  // 粒子环绕的半径
-                    int particleCount = 5;  // 粒子数量
-                    double verticalSpeed = 0.1;  // 上下移动的速度
-                    double horizontalSpeed = 0.1;  // 水平旋转的速度
-
-                    for (int i = 0; i < particleCount; i++) {
-                        double u = (i * 2 * Math.PI) / particleCount;
-                        double v = (player.ticksExisted * verticalSpeed + i * horizontalSpeed) % (2 * Math.PI);
-                        double x = player.posX + radius * Math.sin(v) * Math.cos(u);
-                        double y = player.posY + radius * Math.sin(v) * Math.sin(u);
-                        double z = player.posZ + radius * Math.cos(v);
-                        // 在客户端上显示粒子效果
-                        World world = Minecraft.getMinecraft().world;
-                        //粒子的位置
-                        // 执行你的逻辑，例如使用World类的spawnParticle方法
-                        world.spawnParticle(EnumParticleTypes.SPELL_INSTANT, x, y, z, 0, 0, 0);
-                    }
+                    // 在客户端上显示粒子效果
+                    World world = Minecraft.getMinecraft().world;
+                    //粒子的位置
+                    double posX = message.getPosX();
+                    double posY = message.getPosY() + 0.5;
+                    double posZ = message.getPosZ();
+                    // 执行你的逻辑，例如使用World类的spawnParticle方法
+                    world.spawnParticle(EnumParticleTypes.SPELL_INSTANT, posX, posY, posZ, 0, 0, 0);
                 }
             });
             return null;

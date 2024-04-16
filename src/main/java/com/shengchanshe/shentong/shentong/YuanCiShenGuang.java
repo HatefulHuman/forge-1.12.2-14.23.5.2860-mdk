@@ -18,30 +18,29 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import java.util.*;
 
 public class YuanCiShenGuang {
-//    private static long tickHTYC = 20;
+    private static long tickHTYC = 0;
     public static void HuTiYuanCi(TickEvent.PlayerTickEvent event){
         if (event.player != null) {
             EntityPlayer player = event.player;
             NBTTagCompound nbtTagCompound = player.getEntityData();
             World world = player.getEntityWorld();
-            tick--;
+            tickHTYC++;
             if (nbtTagCompound.hasKey("ShenTong1") && nbtTagCompound.getInteger("ShenTong1") == 7
-                    && nbtTagCompound.getDouble("GongFa28") >= 1 && nbtTagCompound.getBoolean("BeiDong")){
-//                double radius = 1.0;  // 粒子环绕的半径
-//                int particleCount = 5;  // 粒子数量
-//                double verticalSpeed = 0.1;  // 上下移动的速度
-//                double horizontalSpeed = 0.1;  // 水平旋转的速度
-//
-//                for (int i = 0; i < particleCount; i++) {
-//                    double u = (i * 2 * Math.PI) / particleCount;
-//                    double v = (player.ticksExisted * verticalSpeed + i * horizontalSpeed) % (2 * Math.PI);
-//                    double x = player.posX + radius * Math.sin(v) * Math.cos(u);
-//                    double y = player.posY + radius * Math.sin(v) * Math.sin(u);
-//                    double z = player.posZ + radius * Math.cos(v);
-                    HuTiYuanCi message = new HuTiYuanCi();
+                    && nbtTagCompound.getDouble("GongFa28") >= 1 && nbtTagCompound.getBoolean("BeiDong") && tickHTYC >= 20){
+                double radius = 1.0;  // 粒子环绕的半径
+                int particleCount = 3;  // 粒子数量
+                double verticalSpeed = 0.1;  // 上下移动的速度
+                double horizontalSpeed = 0.1;  // 水平旋转的速度
+                for (int i = 0; i < particleCount; i++) {
+                    double u = (i * 2 * Math.PI) / particleCount;
+                    double v = (player.ticksExisted * verticalSpeed + i * horizontalSpeed) % (2 * Math.PI);
+                    double x = player.posX + radius * Math.sin(v) * Math.cos(u);
+                    double y = player.posY + radius * Math.sin(v) * Math.sin(u);
+                    double z = player.posZ + radius * Math.cos(v);
+                    HuTiYuanCi message = new HuTiYuanCi(x,y,z);
                     ModNetwork.INSTANCE.sendToAll(message);
-//                }
-//                tickHTYC = 20;
+                }
+                tickHTYC = 0;
             }
             if (nbtTagCompound.hasKey("ShenTong1") && nbtTagCompound.getInteger("ShenTong1") == 7
                     && !nbtTagCompound.getBoolean("HuTiShenGuangFalse") && nbtTagCompound.getDouble("GongFa28") >= 1 && nbtTagCompound.getBoolean("BeiDong")){

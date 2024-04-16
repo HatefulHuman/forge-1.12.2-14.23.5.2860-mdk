@@ -37,6 +37,8 @@ public class HaoRanZhengQiJue {
     public static double magicDefense1;
     public static double i;
 
+    private static long tickWRZQ = 0;
+
     public static void WeiRangZhengQi(TickEvent.PlayerTickEvent event) {
         if (event.player instanceof EntityPlayer) {
             EntityPlayer player = event.player;
@@ -45,11 +47,12 @@ public class HaoRanZhengQiJue {
             Entity player1 = event.player;
             WeRanZhengQiEntity weRanZhengQiEntity = new WeRanZhengQiEntity(world, player);
             boolean b = nbtTagCompound.getBoolean("False1");
+            tickWRZQ++;
             if (player != null && player.capabilities != null && player.capabilities.isCreativeMode) {
-                if (nbtTagCompound.hasKey("ShenTong1") && nbtTagCompound.getInteger("ShenTong1") == 5
+                if (nbtTagCompound.hasKey("ShenTong1") && nbtTagCompound.getInteger("ShenTong1") == 5 && tickWRZQ >=20
                         && !aBoolean && nbtTagCompound.getBoolean("BeiDong") && !nbtTagCompound.getBoolean("BeiDong1")) {
                     double radius = 1.0;  // 粒子环绕的半径
-                    int particleCount = 2;  // 粒子数量
+                    int particleCount = 3;  // 粒子数量
                     double verticalSpeed = 0.1;  // 上下移动的速度
                     double horizontalSpeed = 0.1;  // 水平旋转的速度
                     for (int i = 0; i < particleCount; i++) {
@@ -61,6 +64,10 @@ public class HaoRanZhengQiJue {
                         WeiRangZhengQi message = new WeiRangZhengQi(x, y, z);
                         ModNetwork.INSTANCE.sendToAll(message);
                     }
+                    tickWRZQ = 0;
+                }
+                if (nbtTagCompound.hasKey("ShenTong1") && nbtTagCompound.getInteger("ShenTong1") == 5
+                        && !aBoolean && nbtTagCompound.getBoolean("BeiDong") && !nbtTagCompound.getBoolean("BeiDong1")) {
                     EntityPosition.EntityPosition(player, 2, weRanZhengQiEntity);
                     weRanZhengQiEntity.setDead();
                 }
@@ -92,7 +99,7 @@ public class HaoRanZhengQiJue {
                 }
             } else {
                 if (nbtTagCompound.hasKey("ShenTong1") && nbtTagCompound.getInteger("ShenTong1") == 5
-                        && nbtTagCompound.hasKey("Power") && nbtTagCompound.getDouble("Power") >= 32
+                        && nbtTagCompound.hasKey("Power") && nbtTagCompound.getDouble("Power") >= 32 && tickWRZQ >= 20
                         && !aBoolean && nbtTagCompound.getDouble("GongFa23") >= 1 && nbtTagCompound.getBoolean("BeiDong")
                         && !nbtTagCompound.getBoolean("BeiDong1")) {
                     double radius = 1.0;  // 粒子环绕的半径
@@ -108,6 +115,12 @@ public class HaoRanZhengQiJue {
                         WeiRangZhengQi message = new WeiRangZhengQi(x, y, z);
                         ModNetwork.INSTANCE.sendToAll(message);
                     }
+                    tickWRZQ = 0;
+                }
+                if (nbtTagCompound.hasKey("ShenTong1") && nbtTagCompound.getInteger("ShenTong1") == 5
+                            && nbtTagCompound.hasKey("Power") && nbtTagCompound.getDouble("Power") >= 32
+                            && !aBoolean && nbtTagCompound.getDouble("GongFa23") >= 1 && nbtTagCompound.getBoolean("BeiDong")
+                            && !nbtTagCompound.getBoolean("BeiDong1")) {
                     nbtTagCompound.setDouble("Power", nbtTagCompound.getDouble("Power") - 1.6);
                     EntityPosition.EntityPosition(player, 2, weRanZhengQiEntity);
                     weRanZhengQiEntity.setDead();
@@ -162,17 +175,19 @@ public class HaoRanZhengQiJue {
     private static double a;
     private static double b;
 
+    private static long tickXGZQ = 0;
     public static void XuanGangZhenQi(TickEvent.PlayerTickEvent event) {
         EntityPlayer player = event.player;
         NBTTagCompound nbtTagCompound = player.getEntityData();
         Entity player1 = event.player;
         World world = player.getEntityWorld();
         XuanGangZhenQiEntity xuanGangZhenQiEntity = new XuanGangZhenQiEntity(world, player);//技能召唤的实体
+        tickXGZQ++;
         if (player != null && player.capabilities != null && player.capabilities.isCreativeMode) {
-            if (nbtTagCompound.hasKey("ShenTong2") && nbtTagCompound.getInteger("ShenTong2") == 5 && !aBoolean
+            if (nbtTagCompound.hasKey("ShenTong2") && nbtTagCompound.getInteger("ShenTong2") == 5 && !aBoolean && tickXGZQ >= 20
                     && nbtTagCompound.getDouble("GongFa23") >= 3 && nbtTagCompound.getBoolean("BeiDong1")) {
                 double radius = 1.0;  // 粒子环绕的半径
-                int particleCount = 2;  // 粒子数量
+                int particleCount = 3;  // 粒子数量
                 double verticalSpeed = 0.1;  // 上下移动的速度
                 double horizontalSpeed = 0.1;  // 水平旋转的速度
                 for (int i = 0; i < particleCount; i++) {
@@ -184,6 +199,10 @@ public class HaoRanZhengQiJue {
                     WeiRangZhengQi message = new WeiRangZhengQi(x, y, z);
                     ModNetwork.INSTANCE.sendToAll(message);
                 }
+                tickXGZQ = 0;
+            }
+            if (nbtTagCompound.hasKey("ShenTong2") && nbtTagCompound.getInteger("ShenTong2") == 5 && !aBoolean
+                        && nbtTagCompound.getDouble("GongFa23") >= 3 && nbtTagCompound.getBoolean("BeiDong1")) {
                 EntityPosition.EntityPosition(player, 2, xuanGangZhenQiEntity);//召唤的实体存在的位置
                 xuanGangZhenQiEntity.setDead();
             }
@@ -203,7 +222,7 @@ public class HaoRanZhengQiJue {
                 nbtTagCompound.setBoolean("False", false);
             }
         } else {
-            if (nbtTagCompound.hasKey("Power") && nbtTagCompound.hasKey("HealthMax") && nbtTagCompound.getDouble("Power") >= 96
+            if (nbtTagCompound.hasKey("Power") && nbtTagCompound.hasKey("HealthMax") && nbtTagCompound.getDouble("Power") >= 96 && tickXGZQ >= 20
                     && nbtTagCompound.getDouble("GongFa23") >= 3 && nbtTagCompound.getBoolean("BeiDong1") && !aBoolean) {
                 double radius = 1.0;  // 粒子环绕的半径
                 int particleCount = 2;  // 粒子数量
@@ -218,6 +237,10 @@ public class HaoRanZhengQiJue {
                     WeiRangZhengQi message = new WeiRangZhengQi(x, y, z);
                     ModNetwork.INSTANCE.sendToAll(message);
                 }
+                tickXGZQ = 0;
+            }
+            if (nbtTagCompound.hasKey("Power") && nbtTagCompound.hasKey("HealthMax") && nbtTagCompound.getDouble("Power") >= 96
+                        && nbtTagCompound.getDouble("GongFa23") >= 3 && nbtTagCompound.getBoolean("BeiDong1") && !aBoolean) {
                 nbtTagCompound.setDouble("Power", nbtTagCompound.getDouble("Power") - 4.8);
                 EntityPosition.EntityPosition(player, 2, xuanGangZhenQiEntity);//召唤的实体存在的位置
                 xuanGangZhenQiEntity.setDead();//

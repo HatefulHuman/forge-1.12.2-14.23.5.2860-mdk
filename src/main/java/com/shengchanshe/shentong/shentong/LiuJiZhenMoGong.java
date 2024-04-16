@@ -11,6 +11,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -43,13 +45,12 @@ public class LiuJiZhenMoGong {
                 double defense1 = defense + ((defense * 0.15));
                 double attack1 = attack + (attack * 0.15);
                 double magicDefense1 = magicDefense + ((magicDefense * 0.15));
+                player.addPotionEffect(new PotionEffect(Potion.getPotionById(1),100,0));
                 // 创建一个计时器
                 Timer timer = new Timer();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        player.capabilities.setPlayerWalkSpeed(0.2F);
-                        player.sendPlayerAbilities();
                         EntityPosition.EntityPosition(player, 1,yiZhuanZhenMoEntity);
                         nbtTagCompound.setDouble("Defense", defense1);
                         nbtTagCompound.setDouble("Attack", attack1);
@@ -65,8 +66,6 @@ public class LiuJiZhenMoGong {
                         }
                         if (cengShu == 1) {
                             cengShu = 0;
-                            player.capabilities.setPlayerWalkSpeed(0.1F); // 默认速度值，根据需要进行调整
-                            player.sendPlayerAbilities(); // 更新玩家的能力状态到客户端
                             yiZhuanZhenMoEntity.setDead();
                             nbtTagCompound.setDouble("Attack", attack);
                             nbtTagCompound.setDouble("Defense", defense);
@@ -94,13 +93,12 @@ public class LiuJiZhenMoGong {
                         double attack1 = attack + (attack * 0.15);
                         double magicDefense1 = magicDefense + ((magicDefense * 0.15));
                         nbtTagCompound.setDouble("Power", nbtTagCompound.getDouble("Power") - 32);
+                        player.addPotionEffect(new PotionEffect(Potion.getPotionById(1),100,0));
                         // 创建一个计时器
                         Timer timer = new Timer();
                         timer.schedule(new TimerTask() {
                             @Override
                             public void run() {
-                                player.capabilities.setPlayerWalkSpeed(0.2F);
-                                player.sendPlayerAbilities();
                                 EntityPosition.EntityPosition(player, 1, yiZhuanZhenMoEntity);
                                 nbtTagCompound.setDouble("Defense", defense1);
                                 nbtTagCompound.setDouble("Attack", attack1);
@@ -116,8 +114,6 @@ public class LiuJiZhenMoGong {
                                 }
                                 if (cengShu == 1) {
                                     cengShu = 0;
-                                    player.capabilities.setPlayerWalkSpeed(0.1F); // 默认速度值，根据需要进行调整
-                                    player.sendPlayerAbilities(); // 更新玩家的能力状态到客户端
                                     yiZhuanZhenMoEntity.setDead();
                                     nbtTagCompound.setDouble("Attack", attack);
                                     nbtTagCompound.setDouble("Defense", defense);
@@ -151,13 +147,12 @@ public class LiuJiZhenMoGong {
                 double defense2 = defense + ((defense * 0.25));
                 double attack2 = attack + (attack * 0.25);
                 double magicDefense2 = magicDefense + ((magicDefense * 0.25));
+                player.addPotionEffect(new PotionEffect(Potion.getPotionById(1),180,1));
                 // 创建一个计时器
                 Timer timer = new Timer();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        player.capabilities.setPlayerWalkSpeed(0.3F);
-                        player.sendPlayerAbilities();
                         EntityPosition.EntityPosition(player,1,yiZhuanZhenMoEntity);
                         nbtTagCompound.setDouble("Defense", defense2);
                         nbtTagCompound.setDouble("Attack", attack2);
@@ -174,8 +169,6 @@ public class LiuJiZhenMoGong {
                         if(cengShu == 3){
                             cengShu = 0;
                         }
-                        player.capabilities.setPlayerWalkSpeed(0.1F); // 默认速度值，根据需要进行调整
-                        player.sendPlayerAbilities(); // 更新玩家的能力状态到客户端
                         yiZhuanZhenMoEntity.setDead();
                         nbtTagCompound.setDouble("Attack", attack_1);
                         nbtTagCompound.setDouble("Defense", defense_1);
@@ -203,13 +196,12 @@ public class LiuJiZhenMoGong {
                         double defense2 = defense + ((defense * 0.25));
                         double attack2 = attack + (attack * 0.25);
                         double magicDefense2 = magicDefense + ((magicDefense * 0.25));
+                        player.addPotionEffect(new PotionEffect(Potion.getPotionById(1),180,1));
                         // 创建一个计时器
                         Timer timer = new Timer();
                         timer.schedule(new TimerTask() {
                             @Override
                             public void run() {
-                                player.capabilities.setPlayerWalkSpeed(0.3F);
-                                player.sendPlayerAbilities();
                                 EntityPosition.EntityPosition(player,1,yiZhuanZhenMoEntity);
                                 nbtTagCompound.setDouble("Defense", defense2);
                                 nbtTagCompound.setDouble("Attack", attack2);
@@ -224,8 +216,6 @@ public class LiuJiZhenMoGong {
                                     timer.cancel();
                                 }
                                 cengShu = 0;
-                                player.capabilities.setPlayerWalkSpeed(0.1F); // 默认速度值，根据需要进行调整
-                                player.sendPlayerAbilities(); // 更新玩家的能力状态到客户端
                                 yiZhuanZhenMoEntity.setDead();
                                 nbtTagCompound.setDouble("Attack", attack_1);
                                 nbtTagCompound.setDouble("Defense", defense_1);
@@ -262,13 +252,12 @@ public class LiuJiZhenMoGong {
                 nbtTagCompound.setDouble("Defense", defense2);
                 nbtTagCompound.setDouble("Attack", attack2);
                 nbtTagCompound.setDouble("MagicDefense", magicDefense2);
+                player.addPotionEffect(new PotionEffect(Potion.getPotionById(1),180,2));
                 // 创建一个计时器
                 Timer timer = new Timer();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        player.capabilities.setPlayerWalkSpeed(0.5F);
-                        player.sendPlayerAbilities();
                         double range = 9.0;
                         BlockPos playerPos = player.getPosition();
                         List<EntityLivingBase> entities = new ArrayList<>(player.world.getEntitiesWithinAABB(EntityLivingBase.class, player.getEntityBoundingBox().grow(range)));
@@ -290,8 +279,6 @@ public class LiuJiZhenMoGong {
                             timer.cancel();
                         }
                         cengShu = 0;
-                        player.capabilities.setPlayerWalkSpeed(0.1F); // 默认速度值，根据需要进行调整
-                        player.sendPlayerAbilities(); // 更新玩家的能力状态到客户端
                         yiZhuanZhenMoEntity.setDead();
                         nbtTagCompound.setDouble("Attack", attack_1);
                         nbtTagCompound.setDouble("Defense", defense_1);
@@ -323,13 +310,12 @@ public class LiuJiZhenMoGong {
                         nbtTagCompound.setDouble("Defense", defense2);
                         nbtTagCompound.setDouble("Attack", attack2);
                         nbtTagCompound.setDouble("MagicDefense", magicDefense2);
+                        player.addPotionEffect(new PotionEffect(Potion.getPotionById(1),180,2));
                         // 创建一个计时器
                         Timer timer = new Timer();
                         timer.schedule(new TimerTask() {
                             @Override
                             public void run() {
-                                player.capabilities.setPlayerWalkSpeed(0.5F);
-                                player.sendPlayerAbilities();
                                 double range = 9.0;
                                 BlockPos playerPos = player.getPosition();
                                 List<EntityLivingBase> entities = new ArrayList<>(player.world.getEntitiesWithinAABB(EntityLivingBase.class, player.getEntityBoundingBox().grow(range)));
@@ -351,8 +337,6 @@ public class LiuJiZhenMoGong {
                                     timer.cancel();
                                 }
                                 cengShu = 0;
-                                player.capabilities.setPlayerWalkSpeed(0.1F); // 默认速度值，根据需要进行调整
-                                player.sendPlayerAbilities(); // 更新玩家的能力状态到客户端
                                 yiZhuanZhenMoEntity.setDead();
                                 nbtTagCompound.setDouble("Attack", attack_1);
                                 nbtTagCompound.setDouble("Defense", defense_1);

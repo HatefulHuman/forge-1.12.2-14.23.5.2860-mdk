@@ -14,6 +14,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -31,6 +33,7 @@ import java.util.TimerTask;
 
 public class ShangGuMoGong {
     public static double attack1;
+    private static long tickGMD = 0;
 
     public static void GuiMoDun(TickEvent.PlayerTickEvent event) {
         if (event.player instanceof EntityPlayer) {
@@ -38,7 +41,8 @@ public class ShangGuMoGong {
             NBTTagCompound nbtTagCompound = player.getEntityData();
             World world = player.getEntityWorld();
             GuiMoDunEntity guiMoDunEntity = new GuiMoDunEntity(world, player);
-            if (nbtTagCompound.hasKey("ShenTong1") && nbtTagCompound.getInteger("ShenTong1") == 6
+            tickGMD++;
+            if (nbtTagCompound.hasKey("ShenTong1") && nbtTagCompound.getInteger("ShenTong1") == 6 && tickGMD >= 20
                     && nbtTagCompound.getDouble("GongFa24") >= 1 && nbtTagCompound.getBoolean("BeiDong")) {
                 double radius = 1.0;  // 粒子环绕的半径
                 int particleCount = 3;  // 粒子数量
@@ -53,22 +57,23 @@ public class ShangGuMoGong {
                     GuiMoDun message = new GuiMoDun(x, y, z);
                     ModNetwork.INSTANCE.sendToAll(message);
                 }
+                tickGMD = 0;
+            }
+            if (nbtTagCompound.hasKey("ShenTong1") && nbtTagCompound.getInteger("ShenTong1") == 6
+                        && nbtTagCompound.getDouble("GongFa24") >= 1 && nbtTagCompound.getBoolean("BeiDong")) {
                 EntityPosition.EntityPosition(player, 2, guiMoDunEntity);
                 guiMoDunEntity.setDead();
+                player.addPotionEffect(new PotionEffect(Potion.getPotionById(1),2,1));
             } else {
                 guiMoDunEntity.setDead();
             }
             if (nbtTagCompound.hasKey("ShenTong1") && nbtTagCompound.getInteger("ShenTong1") == 6
                     && !nbtTagCompound.getBoolean("False2") && nbtTagCompound.getDouble("GongFa24")>= 1
                     && nbtTagCompound.getBoolean("BeiDong")) {
-                player.capabilities.setPlayerWalkSpeed(0.2F);
-                player.sendPlayerAbilities();
                 attack1 = nbtTagCompound.getDouble("Attack") * 1.1;
                 nbtTagCompound.setDouble("Attack", attack1);
                 nbtTagCompound.setBoolean("False2", true);
             } else if (nbtTagCompound.getBoolean("False2") && !nbtTagCompound.getBoolean("BeiDong")) {
-                player.capabilities.setPlayerWalkSpeed(0.1F);
-                player.sendPlayerAbilities();
                 nbtTagCompound.setDouble("Attack", (nbtTagCompound.getDouble("Attack") / 1.1));
                 nbtTagCompound.setBoolean("False2", false);
             }
@@ -110,8 +115,7 @@ public class ShangGuMoGong {
                 lastKeyPressTime = System.currentTimeMillis();
             }
         } else {
-            TextComponentString iTextComponent = new TextComponentString("您的煞气不足以施展神通!");
-            player1.sendMessage(iTextComponent);
+            player1.sendMessage(new TextComponentString("您的煞气不足以施展神通!"));
         }
     }
 
@@ -179,8 +183,7 @@ public class ShangGuMoGong {
                 }, 9000);
             }
         } else {
-            TextComponentString iTextComponent = new TextComponentString("您的煞气不足以施展神通!");
-            player1.sendMessage(iTextComponent);
+            player1.sendMessage(new TextComponentString("您的煞气不足以施展神通!"));
         }
     }
 

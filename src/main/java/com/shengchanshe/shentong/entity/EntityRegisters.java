@@ -21,13 +21,13 @@ public class EntityRegisters {
                     .id(ShenTongMod.MODID + ":huo_dan", nextID++).name("HuoDan").tracker(64, 10, true).build();
     //六极真魔功
     public static final EntityEntry YIZHUANZHENMO =
-            EntityEntryBuilder.create().entity(ZhenMoEntity.class)
+            EntityEntryBuilder.create().entity(YiZhuanZhenMoEntity.class)
                     .id(ShenTongMod.MODID + ":yi_zhuan_zhen_mo", nextID++).name("YiZhuanZhenMo").tracker(64, 10, false).build();
     public static final EntityEntry SANZHUANZHENMO =
-            EntityEntryBuilder.create().entity(ZhenMoEntity.class)
+            EntityEntryBuilder.create().entity(SanZhuanZhenMoEntity.class)
                     .id(ShenTongMod.MODID + ":san_zhuan_zhen_mo", nextID++).name("SanZhuanZhenMo").tracker(64, 10, false).build();
     public static final EntityEntry LIUZHUANZHENMO =
-            EntityEntryBuilder.create().entity(ZhenMoEntity.class)
+            EntityEntryBuilder.create().entity(LiuZhuanZhenMoEntity.class)
                     .id(ShenTongMod.MODID + ":liu_zhuan_zhen_mo", nextID++).name("LiuZhuanZhenMo").tracker(64, 10, false).build();
     //浩然正气决
     public static final EntityEntry WEI_RAN_ZHENG_QI =

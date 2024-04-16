@@ -1,12 +1,12 @@
 package com.shengchanshe.shentong.shentong;
 
-import com.shengchanshe.shentong.entity.ZhenMoEntity;
+import com.shengchanshe.shentong.entity.LiuZhuanZhenMoEntity;
+import com.shengchanshe.shentong.entity.SanZhuanZhenMoEntity;
+import com.shengchanshe.shentong.entity.YiZhuanZhenMoEntity;
 import com.shengchanshe.shentong.network.packet.liujizhenmogun.LiuZhuanZhenMo;
 import com.shengchanshe.shentong.network.packet.liujizhenmogun.SanZhuanZhenMo;
 import com.shengchanshe.shentong.network.packet.liujizhenmogun.YiZhuanZhenMo;
 import com.shengchanshe.shentong.util.EntityPosition;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,7 +35,7 @@ public class LiuJiZhenMoGong {
             // 玩家处于创造模式
             if (nbtTagCompound.hasKey("Defense") && nbtTagCompound.hasKey("Attack") && nbtTagCompound.hasKey("MagicDefense")) {
                 cengShu = 1;
-                ZhenMoEntity yiZhuanZhenMoEntity = new ZhenMoEntity(player.world, player);
+                YiZhuanZhenMoEntity yiZhuanZhenMoEntity = new YiZhuanZhenMoEntity(player.world, player);
                 double attack = nbtTagCompound.getDouble("Attack");
                 double defense = nbtTagCompound.getDouble("Defense");
                 double magicDefense = nbtTagCompound.getDouble("MagicDefense");
@@ -66,11 +66,12 @@ public class LiuJiZhenMoGong {
                         }
                         if (cengShu == 1) {
                             cengShu = 0;
-                            yiZhuanZhenMoEntity.setDead();
-                            nbtTagCompound.setDouble("Attack", attack);
-                            nbtTagCompound.setDouble("Defense", defense);
-                            nbtTagCompound.setDouble("MagicDefense", magicDefense);
                         }
+                        yiZhuanZhenMoEntity.setDead();
+                        nbtTagCompound.setDouble("Attack", attack);
+                        nbtTagCompound.setDouble("Defense", defense);
+                        nbtTagCompound.setDouble("MagicDefense", magicDefense);
+
                     }
                 }, 5000);
             }
@@ -82,7 +83,7 @@ public class LiuJiZhenMoGong {
                     if (tick == 0 || current - tick >= 200) {
                         tick = current;
                         cengShu = 1;
-                        ZhenMoEntity yiZhuanZhenMoEntity = new ZhenMoEntity(player.world, player);
+                        YiZhuanZhenMoEntity yiZhuanZhenMoEntity = new YiZhuanZhenMoEntity(player.world, player);
                         double attack = nbtTagCompound.getDouble("Attack");
                         double defense = nbtTagCompound.getDouble("Defense");
                         double magicDefense = nbtTagCompound.getDouble("MagicDefense");
@@ -114,11 +115,12 @@ public class LiuJiZhenMoGong {
                                 }
                                 if (cengShu == 1) {
                                     cengShu = 0;
-                                    yiZhuanZhenMoEntity.setDead();
-                                    nbtTagCompound.setDouble("Attack", attack);
-                                    nbtTagCompound.setDouble("Defense", defense);
-                                    nbtTagCompound.setDouble("MagicDefense", magicDefense);
                                 }
+                                yiZhuanZhenMoEntity.setDead();
+                                nbtTagCompound.setDouble("Attack", attack);
+                                nbtTagCompound.setDouble("Defense", defense);
+                                nbtTagCompound.setDouble("MagicDefense", magicDefense);
+
                             }
                         }, 5000);
                     }
@@ -139,7 +141,7 @@ public class LiuJiZhenMoGong {
             // 玩家处于创造模式
             if (nbtTagCompound.hasKey("Defense") && nbtTagCompound.hasKey("Attack") && nbtTagCompound.hasKey("MagicDefense") && cengShu == 1) {
                 cengShu = 3;
-                ZhenMoEntity yiZhuanZhenMoEntity = new ZhenMoEntity(player.world, player);
+                SanZhuanZhenMoEntity sanZhuanZhenMoEntity = new SanZhuanZhenMoEntity(player.world, player);
                 double attack = nbtTagCompound.getDouble("Attack");
                 double defense = nbtTagCompound.getDouble("Defense");
                 double magicDefense = nbtTagCompound.getDouble("MagicDefense");
@@ -153,7 +155,7 @@ public class LiuJiZhenMoGong {
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        EntityPosition.EntityPosition(player,1,yiZhuanZhenMoEntity);
+                        EntityPosition.EntityPosition(player,1,sanZhuanZhenMoEntity);
                         nbtTagCompound.setDouble("Defense", defense2);
                         nbtTagCompound.setDouble("Attack", attack2);
                         nbtTagCompound.setDouble("MagicDefense", magicDefense2);
@@ -169,7 +171,7 @@ public class LiuJiZhenMoGong {
                         if(cengShu == 3){
                             cengShu = 0;
                         }
-                        yiZhuanZhenMoEntity.setDead();
+                        sanZhuanZhenMoEntity.setDead();
                         nbtTagCompound.setDouble("Attack", attack_1);
                         nbtTagCompound.setDouble("Defense", defense_1);
                         nbtTagCompound.setDouble("MagicDefense", magicDefense_1);
@@ -188,7 +190,7 @@ public class LiuJiZhenMoGong {
                         tick2 = current;
                         cengShu = 3;
                         nbtTagCompound.setDouble("ShaQi", nbtTagCompound.getDouble("ShaQi") - 96);
-                        ZhenMoEntity yiZhuanZhenMoEntity = new ZhenMoEntity(player.world, player);
+                        SanZhuanZhenMoEntity sanZhuanZhenMoEntity = new SanZhuanZhenMoEntity(player.world, player);
                         double attack = nbtTagCompound.getDouble("Attack");
                         double defense = nbtTagCompound.getDouble("Defense");
                         double magicDefense = nbtTagCompound.getDouble("MagicDefense");
@@ -202,7 +204,7 @@ public class LiuJiZhenMoGong {
                         timer.schedule(new TimerTask() {
                             @Override
                             public void run() {
-                                EntityPosition.EntityPosition(player,1,yiZhuanZhenMoEntity);
+                                EntityPosition.EntityPosition(player,1,sanZhuanZhenMoEntity);
                                 nbtTagCompound.setDouble("Defense", defense2);
                                 nbtTagCompound.setDouble("Attack", attack2);
                                 nbtTagCompound.setDouble("MagicDefense", magicDefense2);
@@ -216,7 +218,7 @@ public class LiuJiZhenMoGong {
                                     timer.cancel();
                                 }
                                 cengShu = 0;
-                                yiZhuanZhenMoEntity.setDead();
+                                sanZhuanZhenMoEntity.setDead();
                                 nbtTagCompound.setDouble("Attack", attack_1);
                                 nbtTagCompound.setDouble("Defense", defense_1);
                                 nbtTagCompound.setDouble("MagicDefense", magicDefense_1);
@@ -240,7 +242,7 @@ public class LiuJiZhenMoGong {
             // 玩家处于创造模式
             if (nbtTagCompound.hasKey("Defense") && nbtTagCompound.hasKey("Attack") && nbtTagCompound.hasKey("MagicDefense") && cengShu == 3) {
                 cengShu = 6;
-                ZhenMoEntity yiZhuanZhenMoEntity = new ZhenMoEntity(player.world, player);
+                LiuZhuanZhenMoEntity liuZhuanZhenMoEntity = new LiuZhuanZhenMoEntity(player.world, player);
                 double attack = nbtTagCompound.getDouble("Attack");
                 double defense = nbtTagCompound.getDouble("Defense");
                 double magicDefense = nbtTagCompound.getDouble("MagicDefense");
@@ -248,11 +250,11 @@ public class LiuJiZhenMoGong {
                 double defense2 = defense + ((defense * 0.45));
                 double attack2 = attack + (attack * 0.45);
                 double magicDefense2 = magicDefense + ((magicDefense * 0.45));
-                EntityPosition.EntityPosition(player,1,yiZhuanZhenMoEntity);
+                EntityPosition.EntityPosition(player,1,liuZhuanZhenMoEntity);
                 nbtTagCompound.setDouble("Defense", defense2);
                 nbtTagCompound.setDouble("Attack", attack2);
                 nbtTagCompound.setDouble("MagicDefense", magicDefense2);
-                player.addPotionEffect(new PotionEffect(Potion.getPotionById(1),180,2));
+                player.addPotionEffect(new PotionEffect(Potion.getPotionById(1),300,2));
                 // 创建一个计时器
                 Timer timer = new Timer();
                 timer.schedule(new TimerTask() {
@@ -279,7 +281,7 @@ public class LiuJiZhenMoGong {
                             timer.cancel();
                         }
                         cengShu = 0;
-                        yiZhuanZhenMoEntity.setDead();
+                        liuZhuanZhenMoEntity.setDead();
                         nbtTagCompound.setDouble("Attack", attack_1);
                         nbtTagCompound.setDouble("Defense", defense_1);
                         nbtTagCompound.setDouble("MagicDefense", magicDefense_1);
@@ -299,18 +301,18 @@ public class LiuJiZhenMoGong {
                         nbtTagCompound.setDouble("Power", nbtTagCompound.getDouble("Power") - 960);
                         nbtTagCompound.setDouble("ShaQi", nbtTagCompound.getDouble("ShaQi") - 48);
                         cengShu = 6;
-                        ZhenMoEntity yiZhuanZhenMoEntity = new ZhenMoEntity(player.world, player);
+                        LiuZhuanZhenMoEntity liuZhuanZhenMoEntity = new LiuZhuanZhenMoEntity(player.world, player);
                         double attack = nbtTagCompound.getDouble("Attack");
                         double defense = nbtTagCompound.getDouble("Defense");
                         double magicDefense = nbtTagCompound.getDouble("MagicDefense");
                         double defense2 = defense + ((defense * 0.45));
                         double attack2 = attack + (attack * 0.45);
                         double magicDefense2 = magicDefense + ((magicDefense * 0.45));
-                        EntityPosition.EntityPosition(player,1,yiZhuanZhenMoEntity);
+                        EntityPosition.EntityPosition(player,1,liuZhuanZhenMoEntity);
                         nbtTagCompound.setDouble("Defense", defense2);
                         nbtTagCompound.setDouble("Attack", attack2);
                         nbtTagCompound.setDouble("MagicDefense", magicDefense2);
-                        player.addPotionEffect(new PotionEffect(Potion.getPotionById(1),180,2));
+                        player.addPotionEffect(new PotionEffect(Potion.getPotionById(1),300,2));
                         // 创建一个计时器
                         Timer timer = new Timer();
                         timer.schedule(new TimerTask() {
@@ -337,7 +339,7 @@ public class LiuJiZhenMoGong {
                                     timer.cancel();
                                 }
                                 cengShu = 0;
-                                yiZhuanZhenMoEntity.setDead();
+                                liuZhuanZhenMoEntity.setDead();
                                 nbtTagCompound.setDouble("Attack", attack_1);
                                 nbtTagCompound.setDouble("Defense", defense_1);
                                 nbtTagCompound.setDouble("MagicDefense", magicDefense_1);

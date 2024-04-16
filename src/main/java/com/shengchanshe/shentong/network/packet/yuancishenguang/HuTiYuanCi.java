@@ -8,7 +8,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-//真炎粒子效果
 public class HuTiYuanCi implements IMessage {
     private double posX;
     private double posY;

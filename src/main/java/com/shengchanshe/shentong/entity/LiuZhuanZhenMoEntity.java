@@ -6,12 +6,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class ZhenMoEntity extends Entity {
+public class LiuZhuanZhenMoEntity extends Entity {
     private EntityPlayer player;
-    public ZhenMoEntity(World worldIn) {
+    public LiuZhuanZhenMoEntity(World worldIn) {
         super(worldIn);
     }
-    public ZhenMoEntity(World worldIn,EntityPlayer player) {
+    public LiuZhuanZhenMoEntity(World worldIn, EntityPlayer player) {
         super(worldIn);
         this.player = player;
     }

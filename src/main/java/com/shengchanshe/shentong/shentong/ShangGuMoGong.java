@@ -13,6 +13,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -60,7 +61,7 @@ public class ShangGuMoGong {
                 tickGMD = 0;
             }
             if (nbtTagCompound.hasKey("ShenTong1") && nbtTagCompound.getInteger("ShenTong1") == 6
-                        && nbtTagCompound.getDouble("GongFa24") >= 1 && nbtTagCompound.getBoolean("BeiDong")) {
+                    && nbtTagCompound.getDouble("GongFa24") >= 1 && nbtTagCompound.getBoolean("BeiDong")) {
                 EntityPosition.EntityPosition(player, 2, guiMoDunEntity);
                 guiMoDunEntity.setDead();
                 player.addPotionEffect(new PotionEffect(Potion.getPotionById(1),2,1));
@@ -146,11 +147,10 @@ public class ShangGuMoGong {
                 EntityPosition.EntityPosition(player, 2, shangGuZhenMoEntity);
                 nbtTagCompound.setDouble("ShaQi", nbtTagCompound.getDouble("ShaQi") - 444);
                 BlockPos regionCenter = new BlockPos(player.posX, player.posY, player.posZ);
-                createPlayerRegion(player, regionCenter);
-                player.capabilities.setPlayerWalkSpeed(0.5F);
-                player.sendPlayerAbilities();
                 double attack = nbtTagCompound.getDouble("Attack") * 1.3;
                 nbtTagCompound.setDouble("Attack", attack);
+                player.addPotionEffect(new PotionEffect(Potion.getPotionById(1),180,2));
+                createPlayerRegion(player, regionCenter);
                 Timer timer = new Timer();
                 timer.schedule(new TimerTask() {
                     @Override
@@ -164,7 +164,6 @@ public class ShangGuMoGong {
                         if (isInPlayerRegion(player)) {
                             // 玩家在区域内，禁止飞行
                             player.capabilities.isFlying = false;
-                            player.sendPlayerAbilities();
                         }
                     }
                 }, 0, 20);//0.5秒执行一次
@@ -177,8 +176,6 @@ public class ShangGuMoGong {
                         shangGuZhenMoEntity.setDead();
                         double attack = nbtTagCompound.getDouble("Attack") / 1.3;
                         nbtTagCompound.setDouble("Attack", attack);
-                        player.capabilities.setPlayerWalkSpeed(0.1F);
-                        player.sendPlayerAbilities();
                     }
                 }, 9000);
             }
